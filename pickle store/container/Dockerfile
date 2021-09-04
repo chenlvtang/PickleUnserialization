@@ -1,7 +1,7 @@
 FROM ubuntu
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt upgrade -y
-
 RUN apt install -y python3 python3-pip nginx netcat curl wget
 RUN pip3 install flask gunicorn
 

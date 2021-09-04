@@ -1,3 +1,0 @@
-# picklecode
-
-Temporarily no writeup.

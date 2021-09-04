@@ -46,7 +46,7 @@ def index():
         cookies = pickle.loads(base64.b64decode(cookies))
         digest = cookies["anti_tamper_hmac"]
         del cookies["anti_tamper_hmac"]
-        h = hmac.new(key)
+        h = hmac.new(key,digestmod='sha1')
         h.update(str(cookies).encode())
         if not hmac.compare_digest(h.digest().hex(), digest):
             cookies = {"money": 500, "history": []}
@@ -59,7 +59,7 @@ def index():
             history=cookies["history"],
         )
     )
-    h = hmac.new(key)
+    h = hmac.new(key,digestmod='sha1')
     h.update(str(cookies).encode())
     cookies["anti_tamper_hmac"] = h.digest().hex()
     resp.set_cookie("session", base64.b64encode(pickle.dumps(cookies)))
@@ -75,7 +75,7 @@ def buy():
         cookies = pickle.loads(base64.b64decode(cookies))
         digest = cookies["anti_tamper_hmac"]
         del cookies["anti_tamper_hmac"]
-        h = hmac.new(key)
+        h = hmac.new(key,digestmod='sha1')
         h.update(str(cookies).encode())
         if not hmac.compare_digest(h.digest().hex(), digest):
             cookies = {"money": 500, "history": []}
@@ -87,7 +87,7 @@ def buy():
         cookies["history"].append(all_cookies[cookie_id]["text"])
 
     resp = make_response(redirect("/"))
-    h = hmac.new(key)
+    h = hmac.new(key,digestmod='sha1')
     h.update(str(cookies).encode())
     cookies["anti_tamper_hmac"] = h.digest().hex()
     resp.set_cookie("session", base64.b64encode(pickle.dumps(cookies)))
@@ -95,4 +95,4 @@ def buy():
 
 
 if __name__ == "__main__":
-    application.run(host="0.0.0.0", port=8000, threaded=False)
+    application.run(host="0.0.0.0", port=8000, debug=True)

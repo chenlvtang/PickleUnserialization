@@ -1,7 +1,5 @@
 ## sources
 
----
-
 picklecode: [code-breaking/2018/picklecode at master · phith0n/code-breaking (github.com)](https://github.com/phith0n/code-breaking/tree/master/2018/picklecode)
 
 pickle store [wat3vr/watevrCTF-2019: Challenge repository for the watevrCTF 2019 CTF competition (github.com)](https://github.com/wat3vr/watevrCTF-2019)
